@@ -1,32 +1,29 @@
 
 #!/bin/bash
 
-# Nama file: git-tracker.sh
-
-# Lokasi file log
 LOG_FILE="$HOME/.git_activity_log"
 
-# Fungsi untuk mendapatkan nama repo
+# get repo name
 get_repo_name() {
     basename -s .git `git config --get remote.origin.url`
 }
 
-# Fungsi untuk mendapatkan folder saat ini
+# current folder
 get_current_folder() {
     basename "$PWD"
 }
 
-# Fungsi untuk mencatat aktivitas
+# record any activity
 log_activity() {
     repo=$(get_repo_name)
     folder=$(get_current_folder)
     echo "$(date '+%Y-%m-%d %H:%M:%S') - [$repo/$folder] $1" >> "$LOG_FILE"
 }
 
-# Fungsi untuk membuat branch baru
+# create a new branch
 new_branch() {
     if [ -z "$1" ]; then
-        echo "Usage: git-tracker new-branch <branch-name>"
+        echo "Usage: git-tracker -b <branch-name>"
         return 1
     fi
     current_branch=$(git rev-parse --abbrev-ref HEAD)
@@ -34,7 +31,7 @@ new_branch() {
     log_activity "New branch '$1' created from '$current_branch'"
 }
 
-# Fungsi untuk stash
+# stash changes
 stash_changes() {
     message="$1"
     if [ -z "$message" ]; then
@@ -54,7 +51,6 @@ case "$1" in
         stash_changes "$*"
         ;;
     log)
-      # change here
       if [ -f "$LOG_FILE" ]; then
         echo '{"logs":['
         first=true
@@ -73,7 +69,7 @@ case "$1" in
       ;;
     *)
         echo "Usage: git-tracker {new-branch|stash|log}"
-        echo "  new-branch <branch-name>: Create a new branch"
+        echo "  -b <branch-name>: Create a new branch"
         echo "  stash [message]: Stash changes with optional message"
         echo "  log: Show activity log"
         ;;
