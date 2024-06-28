@@ -1,5 +1,12 @@
 {
-	"dependencies": {
-		"express": "^4.19.2"
-	}
+  "name": "git-tracker",
+  "description": "a minimalist tool to record any changes from github",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "dev": "node index.js"
+  },
+  "dependencies": {
+    "express": "^4.19.2"
+  }
 }
