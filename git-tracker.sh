@@ -68,7 +68,7 @@ case "$1" in
       fi
       ;;
     *)
-        echo "Usage: git-tracker {new-branch|stash|log}"
+        echo "Usage: git-tracker {-b|stash|log}"
         echo "  -b <branch-name>: Create a new branch"
         echo "  stash [message]: Stash changes with optional message"
         echo "  log: Show activity log"
